@@ -52,6 +52,7 @@ blocked_ips: dict[str, datetime] = {}
 known_ips_by_login: dict[str, set[str]] = defaultdict(set)
 ip_counters: Counter[str] = Counter()
 SECURITY_LOG_PATH = Path("security_events.log")
+APP_LOG_PATH = Path("fileHand.log")
 
 
 def now_local() -> datetime:
@@ -107,6 +108,10 @@ def clear_runtime_history() -> None:
 
 def clear_security_log_file() -> None:
     SECURITY_LOG_PATH.write_text("", encoding="utf-8")
+
+
+def clear_app_log_file() -> None:
+    APP_LOG_PATH.write_text("", encoding="utf-8")
 
 
 def get_ip_activity_anomaly(ip: str) -> bool:
@@ -170,7 +175,7 @@ def build_chart(hours: int = 12) -> list[dict]:
             microsecond=0,
         )
         label = bucket_time.strftime("%H:%M")
-        bucket = {"label": label, "logins": 0, "suspicious": 0}
+        bucket = {"label": label, "suspicious": 0, "blocked": 0, "sqlInjection": 0}
         buckets.append(bucket)
         bucket_index[label] = bucket
 
@@ -180,9 +185,12 @@ def build_chart(hours: int = 12) -> list[dict]:
         bucket = bucket_index.get(label)
         if not bucket:
             continue
-        bucket["logins"] += 1
-        if event["anomalies"]:
+        if event["status"] == "blocked":
+            bucket["blocked"] += 1
+        if event["status"] != "success" and event["anomalies"]:
             bucket["suspicious"] += 1
+        if "sql_injection" in event["anomalies"]:
+            bucket["sqlInjection"] += 1
 
     return buckets
 
@@ -221,7 +229,7 @@ async def get_dashboard():
 async def clear_history():
     clear_runtime_history()
     clear_security_log_file()
-    mylog.info("История событий и файл security_events.log очищены.")
+    clear_app_log_file()
     return {
         "message": "История логов, графика и уведомлений очищена.",
         "dashboard": dashboard_payload(),
@@ -305,7 +313,6 @@ async def login(auth: Auth, request: Request):
             )
 
         if ip not in known_ips_by_login[login_value]:
-            anomalies.append("new_ip")
             detail_parts.append("Для пользователя замечен новый IP-адрес.")
 
         known_ips_by_login[login_value].add(ip)

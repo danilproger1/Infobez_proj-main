@@ -51,7 +51,11 @@ function ActivityChart({ points }) {
   const safePoints = points.length ? points : emptyDashboard.chart;
   const maxValue = Math.max(
     1,
-    ...safePoints.flatMap((point) => [point.logins, point.suspicious]),
+    ...safePoints.flatMap((point) => [
+      point.suspicious ?? 0,
+      point.blocked ?? 0,
+      point.sqlInjection ?? 0,
+    ]),
   );
   const chartHeight = 220;
   const gap = safePoints.length > 1 ? 100 / (safePoints.length - 1) : 100;
@@ -77,16 +81,19 @@ function ActivityChart({ points }) {
         ))}
       </div>
       <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="chart-svg">
-        <polyline className="line-primary" points={buildLine('logins')} />
         <polyline className="line-alert" points={buildLine('suspicious')} />
+        <polyline className="line-blocked" points={buildLine('blocked')} />
+        <polyline className="line-sql" points={buildLine('sqlInjection')} />
         {safePoints.map((point, index) => {
           const x = index * gap;
-          const loginY = 100 - (point.logins / maxValue) * 100;
-          const suspiciousY = 100 - (point.suspicious / maxValue) * 100;
+          const suspiciousY = 100 - ((point.suspicious ?? 0) / maxValue) * 100;
+          const blockedY = 100 - ((point.blocked ?? 0) / maxValue) * 100;
+          const sqlInjectionY = 100 - ((point.sqlInjection ?? 0) / maxValue) * 100;
           return (
             <g key={point.label}>
-              <circle className="chart-point-primary" cx={x} cy={loginY} r="1.5" />
               <circle className="chart-point-alert" cx={x} cy={suspiciousY} r="1.5" />
+              <circle className="chart-point-blocked" cx={x} cy={blockedY} r="1.5" />
+              <circle className="chart-point-sql" cx={x} cy={sqlInjectionY} r="1.5" />
             </g>
           );
         })}
@@ -98,12 +105,16 @@ function ActivityChart({ points }) {
       </div>
       <div className="chart-legend">
         <span>
-          <i className="legend-mark primary" />
-          Все входы
-        </span>
-        <span>
           <i className="legend-mark alert" />
           Подозрительные события
+        </span>
+        <span>
+          <i className="legend-mark blocked" />
+          Заблокированные IP
+        </span>
+        <span>
+          <i className="legend-mark sql" />
+          SQL-инъекции
         </span>
       </div>
     </div>
@@ -362,7 +373,7 @@ function LoginForm() {
           <Paper className="panel-card" elevation={0}>
             <div className="panel-head">
               <div>
-                <Typography variant="h6">Уведомления для админки</Typography>
+              <Typography variant="h6">Админ панель</Typography>
                 <Typography className="panel-subtitle">
                   Последние сигналы о нарушениях
                 </Typography>
