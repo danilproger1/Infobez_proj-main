@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://infobez-proj-main.onrender.com/';
 
 const anomalyLabels = {
   sql_injection: 'Признак SQL-инъекции',
