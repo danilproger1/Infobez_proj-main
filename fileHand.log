@@ -1,0 +1,17 @@
+2026-04-27 17:45:07,308 - my_logger - INFO - AUTH event | status=success | login=admin | ip=192.168.1.10 | anomalies=none | detail=Для пользователя замечен новый IP-адрес.
+2026-04-27 17:45:17,273 - my_logger - WARNING - AUTH event | status=failed | login=admin123 | ip=192.168.1.10 | anomalies=none | detail=Неверный логин или пароль.
+2026-04-27 17:45:26,754 - my_logger - INFO - AUTH event | status=success | login=admin | ip=192.168.1.10 | anomalies=none | detail=Аутентификация прошла успешно.
+2026-04-27 17:45:29,602 - my_logger - WARNING - AUTH event | status=failed | login=admin123 | ip=192.168.1.10 | anomalies=none | detail=Неверный логин или пароль.
+2026-04-27 17:45:30,066 - my_logger - WARNING - ADMIN ALERT | failed_burst | login=admin123 | ip=192.168.1.10 | Обнаружена серия неудачных попыток аутентификации.
+2026-04-27 17:45:30,066 - my_logger - WARNING - AUTH event | status=failed | login=admin123 | ip=192.168.1.10 | anomalies=failed_burst | detail=Зафиксировано 3 неудачных попыток входа за короткий промежуток времени.
+2026-04-27 17:45:54,679 - my_logger - WARNING - ADMIN ALERT | sql_injection | login=SELECT * FROM products WHERE category = 'Gifts'--' AND released = 1 | ip=192.168.1.10 | Найдена подозрительная строка, похожая на SQL-инъекцию.
+2026-04-27 17:45:54,680 - my_logger - WARNING - ADMIN ALERT | failed_burst | login=SELECT * FROM products WHERE category = 'Gifts'--' AND released = 1 | ip=192.168.1.10 | Обнаружена серия неудачных попыток аутентификации.
+2026-04-27 17:45:54,680 - my_logger - WARNING - AUTH event | status=failed | login=SELECT * FROM products WHERE category = 'Gifts'--' AND released = 1 | ip=192.168.1.10 | anomalies=sql_injection, failed_burst | detail=Обнаружен признак SQL-инъекции. Зафиксировано 4 неудачных попыток входа за короткий промежуток времени.
+2026-04-27 17:46:24,515 - my_logger - WARNING - ADMIN ALERT | failed_burst | login=admin123 | ip=192.168.1.10 | Обнаружена серия неудачных попыток аутентификации.
+2026-04-27 17:46:24,515 - my_logger - WARNING - ADMIN ALERT | auth_blocked | login=admin123 | ip=192.168.1.10 | IP-адрес заблокирован после частых неудачных попыток входа.
+2026-04-27 17:46:24,516 - my_logger - WARNING - AUTH event | status=failed | login=admin123 | ip=192.168.1.10 | anomalies=failed_burst, auth_blocked | detail=Зафиксировано 5 неудачных попыток входа за короткий промежуток времени. IP заблокирован до 2026-04-27 18:01:24.
+2026-04-27 17:46:44,968 - my_logger - INFO - AUTH event | status=success | login=admin | ip=192.168.1.11 | anomalies=none | detail=Для пользователя замечен новый IP-адрес.
+2026-04-27 17:49:12,707 - my_logger - WARNING - ADMIN ALERT | ip_blocked | login=admin | ip=192.168.1.10 | Обнаружена попытка входа с заблокированного IP-адреса.
+2026-04-27 17:49:12,707 - my_logger - WARNING - AUTH event | status=blocked | login=admin | ip=192.168.1.10 | anomalies=ip_blocked | detail=Вход запрещен до 2026-04-27 18:01:24
+2026-04-27 17:49:14,060 - my_logger - WARNING - ADMIN ALERT | ip_blocked | login=admin | ip=192.168.1.10 | Обнаружена попытка входа с заблокированного IP-адреса.
+2026-04-27 17:49:14,060 - my_logger - WARNING - AUTH event | status=blocked | login=admin | ip=192.168.1.10 | anomalies=ip_blocked | detail=Вход запрещен до 2026-04-27 18:01:24

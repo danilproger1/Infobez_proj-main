@@ -1,0 +1,15 @@
+{"timestamp": "2026-04-27 17:45:07", "login": "admin", "ip": "192.168.1.10", "status": "success", "anomalies": [], "detail": "Для пользователя замечен новый IP-адрес."}
+{"timestamp": "2026-04-27 17:45:17", "login": "admin123", "ip": "192.168.1.10", "status": "failed", "anomalies": [], "detail": "Неверный логин или пароль."}
+{"timestamp": "2026-04-27 17:45:26", "login": "admin", "ip": "192.168.1.10", "status": "success", "anomalies": [], "detail": "Аутентификация прошла успешно."}
+{"timestamp": "2026-04-27 17:45:29", "login": "admin123", "ip": "192.168.1.10", "status": "failed", "anomalies": [], "detail": "Неверный логин или пароль."}
+{"timestamp": "2026-04-27 17:45:30", "login": "admin123", "ip": "192.168.1.10", "status": "failed", "anomalies": ["failed_burst"], "detail": "Зафиксировано 3 неудачных попыток входа за короткий промежуток времени."}
+{"timestamp": "2026-04-27 17:45:54", "login": "SELECT * FROM products WHERE category = 'Gifts'--' AND released = 1", "ip": "192.168.1.10", "status": "failed", "anomalies": ["sql_injection", "failed_burst"], "detail": "Обнаружен признак SQL-инъекции. Зафиксировано 4 неудачных попыток входа за короткий промежуток времени."}
+{"timestamp": "2026-04-27 17:46:24", "login": "admin123", "ip": "192.168.1.10", "status": "failed", "anomalies": ["failed_burst", "auth_blocked"], "detail": "Зафиксировано 5 неудачных попыток входа за короткий промежуток времени. IP заблокирован до 2026-04-27 18:01:24."}
+{"timestamp": "2026-04-27 17:46:44", "login": "admin", "ip": "192.168.1.11", "status": "success", "anomalies": [], "detail": "Для пользователя замечен новый IP-адрес."}
+{"timestamp": "2026-04-27 17:49:12", "login": "admin", "ip": "192.168.1.10", "status": "blocked", "anomalies": ["ip_blocked"], "detail": "Вход запрещен до 2026-04-27 18:01:24"}
+{"timestamp": "2026-04-27 17:49:14", "login": "admin", "ip": "192.168.1.10", "status": "blocked", "anomalies": ["ip_blocked"], "detail": "Вход запрещен до 2026-04-27 18:01:24"}
+{"timestamp": "2026-04-28 08:48:38", "login": "admin", "ip": "192.168.1.10", "status": "success", "anomalies": [], "detail": "Для пользователя замечен новый IP-адрес."}
+{"timestamp": "2026-04-28 08:48:39", "login": "admin", "ip": "192.168.1.10", "status": "success", "anomalies": [], "detail": "Аутентификация прошла успешно."}
+{"timestamp": "2026-04-28 08:48:41", "login": "admin1", "ip": "192.168.1.10", "status": "failed", "anomalies": [], "detail": "Неверный логин или пароль."}
+{"timestamp": "2026-04-28 08:48:42", "login": "admin1", "ip": "192.168.1.10", "status": "failed", "anomalies": [], "detail": "Неверный логин или пароль."}
+{"timestamp": "2026-04-28 08:48:44", "login": "admin1", "ip": "192.168.1.10", "status": "failed", "anomalies": ["failed_burst"], "detail": "Зафиксировано 3 неудачных попыток входа за короткий промежуток времени."}
